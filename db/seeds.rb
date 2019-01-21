@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# require 'faker'
+
+
+Character.destroy_all
+Item.destroy_all
+Inventory.destroy_all
+
+50.times do
+  Character.create(name: Faker::Zelda.unique.character, hometown: Faker::Zelda.location)
+  Item.create(name: Faker::Zelda.unique.item)
+end
+
+all_items = Item.all
+Character.all.each do |char|
+  5.times do
+    Inventory.create(character: char, item: all_items.sample, quantity: rand(10))
+  end
+end
